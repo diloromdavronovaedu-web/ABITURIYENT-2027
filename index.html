@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b78">
+<title>ABITURIYENT 2027</title>
+<style>
+:root{--navy:#123b78;--blue:#2463c7;--sky:#eaf2ff;--gold:#f2b544;--ink:#17243a;--muted:#68758a;--line:#e5eaf2;--white:#fff;--bg:#f5f8fd}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+header{background:linear-gradient(120deg,#102f61,#2463c7);color:white;padding:16px max(18px,calc((100% - 1120px)/2));position:sticky;top:0;z-index:5;box-shadow:0 4px 18px #102f6122}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}.logo{width:42px;height:42px;border-radius:13px;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:20px;font-weight:900}.brand small{display:block;font-size:11px;font-weight:500;opacity:.8;letter-spacing:1.5px;margin-top:3px}
+nav{display:flex;gap:7px;flex-wrap:wrap}button,.navbtn{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer;font-size:14px}.navbtn{color:white;background:#ffffff18}.navbtn.active,.navbtn:hover{background:#ffffff30}.btn-gold{background:var(--gold);color:#192b46}.btn-blue{background:var(--blue);color:white}.btn-light{background:white;color:var(--navy);border:1px solid var(--line)}
+main{max-width:1120px;margin:0 auto;padding:24px 18px 60px}.hero{background:linear-gradient(115deg,#102f61,#286bd1);color:white;border-radius:24px;padding:34px 28px;display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:center;overflow:hidden;position:relative}.eyebrow{color:#ffdb8a;font-weight:800;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:12px 0}.hero p{line-height:1.65;color:#e1ebff;max-width:600px}.hero-art{font-size:clamp(80px,14vw,150px);text-align:center;filter:drop-shadow(0 12px 20px #071b4333)}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 28px}.stat,.panel,.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:18px}.stat b{font-size:23px;color:var(--navy);display:block}.stat span{font-size:13px;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:28px 0 14px}.section-head h2{margin:0;font-size:23px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.tile{transition:.2s}.tile:hover{transform:translateY(-2px);box-shadow:0 8px 22px #173d7412}.tile .emoji{font-size:26px}.tile h3{margin:10px 0 6px}.tile p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
+.page{display:none}.page.active{display:block}.panel{margin-top:14px}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:700}.field input,.field select{width:100%;padding:13px;border:1px solid #d8e0ec;border-radius:10px;font-size:15px;background:#fff;color:var(--ink)}.field input:focus,.field select:focus{outline:2px solid #b9d1ff;border-color:var(--blue)}.form-wrap{max-width:520px;margin:20px auto}.notice{padding:12px 14px;border-radius:10px;background:#fff7e5;color:#76520d;font-size:13px;line-height:1.5;margin:12px 0}.success{background:#e8f8ef;color:#17633a}.error{background:#fff0f0;color:#9b2525}.muted{color:var(--muted);font-size:13px;line-height:1.5}.list{display:grid;gap:9px}.list-item{padding:13px 14px;background:white;border:1px solid var(--line);border-radius:11px;display:flex;justify-content:space-between;gap:10px;align-items:center}.list-item small{color:var(--muted)}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);background:white}
+@media(max-width:720px){header{padding:12px 14px}.top{align-items:flex-start;flex-direction:column}nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.navbtn{white-space:nowrap}.hero{grid-template-columns:1fr;padding:26px 20px}.hero-art{display:none}.grid{grid-template-columns:1fr 1fr}.stats{gap:8px}.stat{padding:13px}.stat b{font-size:19px}}
+@media(max-width:420px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  <div class="brand"><div class="logo">A27</div><div>ABITURIYENT 2027<small>BILIM • MAQSAD • KELAJAK</small></div></div>
+  <nav>
+   <button class="navbtn active" data-page="home">Bosh sahifa</button>
+   <button class="navbtn" data-page="subjects">Fanlar</button>
+   <button class="navbtn" data-page="directions">Yo‘nalishlar</button>
+   <button class="navbtn" data-page="tests">Testlar</button>
+   <button class="navbtn" data-page="auth">Kirish</button>
+  </nav>
+ </div>
+</header>
+<main>
+ <section id="home" class="page active">
+  <div class="hero">
+   <div><div class="eyebrow">KELAJAGINGIZ BUGUNDAN BOSHLANADI</div><h1>Orzudagi oliygoh sari ishonch bilan!</h1><p>ABITURIYENT 2027 — fanlarni o‘rganish, ta’lim yo‘nalishlarini tanlash va bilimni sinovdan o‘tkazish uchun yagona platforma.</p>
+    <div class="hero-actions"><button class="btn-gold" data-go="auth">Ro‘yxatdan o‘tish</button><button class="btn-light" data-go="subjects">Fanlarni ko‘rish</button></div>
+   </div><div class="hero-art">🎓</div>
+  </div>
+  <div class="stats">
+   <div class="stat"><b id="subjectCount">—</b><span>Fanlar katalogi</span></div>
+   <div class="stat"><b id="directionCount">—</b><span>Ta’lim yo‘nalishlari</span></div>
+   <div class="stat"><b>2027</b><span>Maqsadli qabul yili</span></div>
+  </div>
+  <div class="section-head"><div><h2>Platforma imkoniyatlari</h2><p>Abituriyent uchun kerakli bo‘limlar bir joyda</p></div></div>
+  <div class="grid">
+   <article class="tile"><div class="emoji">📚</div><h3>Fanlar</h3><p>Imtihon fanlari katalogini ko‘ring.</p></article>
+   <article class="tile"><div class="emoji">🧭</div><h3>Yo‘nalish tanlash</h3><p>Ta’lim yo‘nalishlari bilan tanishing.</p></article>
+   <article class="tile"><div class="emoji">📝</div><h3>Test sinovlari</h3><p>Bilimingizni sinash uchun testlar bo‘limi.</p></article>
+  </div>
+  <div id="connectionStatus" class="notice">Ma’lumotlar bazasi ulanishi sozlanmoqda.</div>
+ </section>
+
+ <section id="subjects" class="page">
+  <div class="section-head"><div><h2>Fanlar katalogi</h2><p>Supabase bazasidagi fanlar</p></div></div>
+  <div id="subjectsList" class="list"><div class="panel">Fanlar yuklanmoqda…</div></div>
+ </section>
+ <section id="directions" class="page">
+  <div class="section-head"><div><h2>Ta’lim yo‘nalishlari</h2><p>Supabase bazasidagi yo‘nalishlar</p></div></div>
+  <div id="directionsList" class="list"><div class="panel">Yo‘nalishlar yuklanmoqda…</div></div>
+ </section>
+ <section id="tests" class="page">
+  <div class="section-head"><div><h2>Test sinovlari</h2><p>Test moduli keyingi bosqichda ulanadi</p></div></div>
+  <div class="panel"><div class="emoji">📝</div><h3>Bilimingizni sinashga tayyormisiz?</h3><p class="muted">Test savollari va natijalarni saqlash moduli keyingi bosqichda qo‘shiladi. Hozircha fanlar va yo‘nalishlar katalogini tekshirishingiz mumkin.</p><button class="btn-blue" data-go="subjects">Fanlarni ko‘rish</button></div>
+ </section>
+ <section id="auth" class="page">
+  <div class="form-wrap">
+   <div class="section-head"><div><h2>Abituriyent kabineti</h2><p>Telefon raqami orqali kirish yoki ro‘yxatdan o‘tish</p></div></div>
+   <div class="panel">
+    <div class="field"><label for="phone">Telefon raqami (xalqaro format)</label><input id="phone" type="tel" placeholder="+998901234567" autocomplete="tel"></div>
+    <div class="field"><label for="password">Parol</label><input id="password" type="password" placeholder="Kamida 8 ta belgi" autocomplete="new-password"></div>
+    <div class="field"><label for="otp">SMS tasdiqlash kodi</label><input id="otp" inputmode="numeric" placeholder="6 xonali kod"></div>
+    <div class="hero-actions"><button id="signupBtn" class="btn-blue">Ro‘yxatdan o‘tish</button><button id="verifyBtn" class="btn-light">SMS kodni tasdiqlash</button><button id="loginBtn" class="btn-light">Kirish</button></div>
+    <div id="authMessage" class="notice">SMS orqali ro‘yxatdan o‘tish Supabase telefon autentifikatsiyasi va SMS provayderi yoqilgandan keyin ishlaydi.</div>
+    <p class="muted">Xavfsizlik: parolni saytning o‘zi saqlamaydi. Tasdiqlash va parol boshqaruvi Supabase Auth orqali amalga oshiriladi.</p>
+   </div>
+  </div>
+ </section>
+</main>
+<footer>© 2026 ABITURIYENT 2027 · Bilim — kelajak kaliti</footer>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// Supabase loyihangiz manzili kiritildi. Publishable keyni keyin qo‘shamiz.
+const SUPABASE_URL = 'https://osdopniplzimpdijnkkw.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE';
+const configured = SUPABASE_PUBLISHABLE_KEY !== 'PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE';
+let supabase = null;
+if (configured) {
+  supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+}
+
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.go)));
+
+const statusBox=document.getElementById('connectionStatus');
+const subjectsList=document.getElementById('subjectsList');
+const directionsList=document.getElementById('directionsList');
+function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function pickName(row){return row.name??row.title??row.subject_name??row.direction_name??Object.values(row).find(v=>typeof v==='string')??'Nomi ko‘rsatilmagan';}
+async function loadTable(table,container,countId,label){
+ if(!supabase){container.innerHTML='<div class="panel">Supabase kaliti qo‘shilgach, '+label.toLowerCase()+' shu yerda ko‘rinadi.</div>';return;}
+ const {data,error}=await supabase.from(table).select('*').limit(100);
+ if(error){container.innerHTML='<div class="notice error">“'+safeText(table)+'” jadvalidan ma’lumot olinmadi: '+safeText(error.message)+'</div>';return;}
+ document.getElementById(countId).textContent=data.length;
+ container.innerHTML=data.length?data.map(row=>'<div class="list-item"><span>📘 '+safeText(pickName(row))+'</span><small>'+safeText(table)+'</small></div>').join(''):'<div class="panel">Hozircha ma’lumot yo‘q.</div>';
+}
+if(configured){
+ statusBox.textContent='Supabase bilan aloqa tekshirilmoqda…';
+ Promise.all([
+  loadTable('subjects',subjectsList,'subjectCount','Fanlar'),
+  loadTable('directions',directionsList,'directionCount','Yo‘nalishlar')
+ ]).then(()=>{statusBox.className='notice success';statusBox.textContent='Supabase kaliti ulandi. Kataloglar yuklanishi tekshirildi.'});
+}else{
+ statusBox.textContent='Dastlabki maket tayyor. Fanlar va yo‘nalishlarni bazadan chiqarish uchun Supabase publishable keyni qo‘shish kerak.';
+ document.getElementById('subjectCount').textContent='16*';
+ document.getElementById('directionCount').textContent='10*';
+ loadTable('subjects',subjectsList,'subjectCount','Fanlar');
+ loadTable('directions',directionsList,'directionCount','Yo‘nalishlar');
+}
+const authMessage=document.getElementById('authMessage');
+function tell(message,isError=false){authMessage.textContent=message;authMessage.className='notice '+(isError?'error':'success');}
+document.getElementById('signupBtn').addEventListener('click',async()=>{
+ if(!supabase)return tell('Avval Supabase publishable key qo‘shilishi kerak.',true);
+ const phone=document.getElementById('phone').value.trim(),password=document.getElementById('password').value;
+ if(!phone.startsWith('+')||password.length<8)return tell('Telefonni +998... formatida va kamida 8 belgili parol kiriting.',true);
+ const {error}=await supabase.auth.signUp({phone,password});
+ tell(error?error.message:'SMS tasdiqlash kodi yuborildi. Kodni kiriting va “SMS kodni tasdiqlash” tugmasini bosing.',!!error);
+});
+document.getElementById('verifyBtn').addEventListener('click',async()=>{
+ if(!supabase)return tell('Avval Supabase publishable key qo‘shilishi kerak.',true);
+ const phone=document.getElementById('phone').value.trim(),token=document.getElementById('otp').value.trim();
+ const {error}=await supabase.auth.verifyOtp({phone,token,type:'sms'});
+ tell(error?error.message:'Telefon raqami tasdiqlandi. Endi parolingiz bilan kirishingiz mumkin.',!!error);
+});
+document.getElementById('loginBtn').addEventListener('click',async()=>{
+ if(!supabase)return tell('Avval Supabase publishable key qo‘shilishi kerak.',true);
+ const phone=document.getElementById('phone').value.trim(),password=document.getElementById('password').value;
+ const {error}=await supabase.auth.signInWithPassword({phone,password});
+ tell(error?error.message:'Tizimga muvaffaqiyatli kirdingiz!',!!error);
+});
+</script>
+</body>
+</html>
