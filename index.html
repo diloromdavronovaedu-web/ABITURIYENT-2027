@@ -104,7 +104,7 @@ const statusBox=document.getElementById('connectionStatus');
 const subjectsList=document.getElementById('subjectsList');
 const directionsList=document.getElementById('directionsList');
 function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function pickName(row){return row.name??row.title??row.subject_name??row.direction_name??Object.values(row).find(v=>typeof v==='string')??'Nomi ko‘rsatilmagan';}
+ function pickName(row){return row.name_uz||row.name||row.title||row.code||'Fan nomi';}
 async function loadTable(table,container,countId,label){
  if(!supabase){container.innerHTML='<div class="panel">Supabase kaliti qo‘shilgach, '+label.toLowerCase()+' shu yerda ko‘rinadi.</div>';return;}
  const {data,error}=await supabase.from(table).select('*').limit(100);
