@@ -10,26 +10,128 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
 header{background:linear-gradient(120deg,#102f61,#2463c7);color:white;padding:16px max(18px,calc((100% - 1120px)/2));position:sticky;top:0;z-index:5;box-shadow:0 4px 18px #102f6122}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}.logo{width:42px;height:42px;border-radius:13px;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:20px;font-weight:900}.brand small{display:block;font-size:11px;font-weight:500;opacity:.8;letter-spacing:1.5px;margin-top:3px}
-nav{display:flex;gap:7px;flex-wrap:wrap}button,.navbtn{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer;font-size:14px}.navbtn{color:white;background:#ffffff18}.navbtn.active,.navbtn:hover{background:#ffffff30}.btn-gold{background:var(--gold);color:#192b46}.btn-blue{background:var(--blue);color:white}.btn-light{background:white;color:var(--navy);border:1px solid var(--line)}
+nav{display:flex;gap:7px;flex-wrap:wrap;align-items:center}button,.navbtn{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer;font-size:14px}.navbtn{color:white;background:#ffffff18}.navbtn.active,.navbtn:hover{background:#ffffff30}.navbtn[data-page="auth"]{margin-left:auto;background:var(--gold);color:#192b46}.btn-gold{background:var(--gold);color:#192b46}.btn-blue{background:var(--blue);color:white}.btn-light{background:white;color:var(--navy);border:1px solid var(--line)}
 main{max-width:1120px;margin:0 auto;padding:24px 18px 60px}.hero{background:linear-gradient(115deg,#102f61,#286bd1);color:white;border-radius:24px;padding:34px 28px;display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:center;overflow:hidden;position:relative}.eyebrow{color:#ffdb8a;font-weight:800;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:12px 0}.hero p{line-height:1.65;color:#e1ebff;max-width:600px}.hero-art{font-size:clamp(80px,14vw,150px);text-align:center;filter:drop-shadow(0 12px 20px #071b4333)}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 28px}.stat,.panel,.tile{background:white;border:1px solid var(--line);border-radius:16px;padding:18px}.stat b{font-size:23px;color:var(--navy);display:block}.stat span{font-size:13px;color:var(--muted)}
 .section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:28px 0 14px}.section-head h2{margin:0;font-size:23px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.tile{transition:.2s}.tile:hover{transform:translateY(-2px);box-shadow:0 8px 22px #173d7412}.tile .emoji{font-size:26px}.tile h3{margin:10px 0 6px}.tile p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
 .page{display:none}.page.active{display:block}.panel{margin-top:14px}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:700}.field input,.field select{width:100%;padding:13px;border:1px solid #d8e0ec;border-radius:10px;font-size:15px;background:#fff;color:var(--ink)}.field input:focus,.field select:focus{outline:2px solid #b9d1ff;border-color:var(--blue)}.form-wrap{max-width:520px;margin:20px auto}.notice{padding:12px 14px;border-radius:10px;background:#fff7e5;color:#76520d;font-size:13px;line-height:1.5;margin:12px 0}.success{background:#e8f8ef;color:#17633a}.error{background:#fff0f0;color:#9b2525}.muted{color:var(--muted);font-size:13px;line-height:1.5}.list{display:grid;gap:9px}.list-item{padding:13px 14px;background:white;border:1px solid var(--line);border-radius:11px;display:flex;justify-content:space-between;gap:10px;align-items:center}.list-item small{color:var(--muted)}
 footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);background:white}
-@media(max-width:720px){header{padding:12px 14px}.top{align-items:flex-start;flex-direction:column}nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.navbtn{white-space:nowrap}.hero{grid-template-columns:1fr;padding:26px 20px}.hero-art{display:none}.grid{grid-template-columns:1fr 1fr}.stats{gap:8px}.stat{padding:13px}.stat b{font-size:19px}}
+@media(max-width:720px){nav .navbtn[data-page="auth"]{margin-left:0}header{padding:12px 14px}.top{align-items:flex-start;flex-direction:column}nav{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.navbtn{white-space:nowrap}.hero{grid-template-columns:1fr;padding:26px 20px}.hero-art{display:none}.grid{grid-template-columns:1fr 1fr}.stats{gap:8px}.stat{padding:13px}.stat b{font-size:19px}}
 @media(max-width:420px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}}
+
+.dashboard-hero{background:linear-gradient(115deg,#102f61,#246bd0);color:#fff;border-radius:20px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:16px}
+.dashboard-hero h1{margin:7px 0;font-size:clamp(24px,4vw,34px)}.dashboard-hero p{margin:0;color:#e4edff}
+.dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.metric{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 5px 18px #173d740b}
+.metric strong{display:block;font-size:25px;color:var(--navy);margin:6px 0}.metric span{font-size:13px;color:var(--muted)}
+.dashboard-columns{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.dash-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+.dash-panel h3{margin:0 0 14px;color:var(--navy)}
+.dash-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.dash-row:last-child{border-bottom:0}.progress{height:9px;background:#e8eef8;border-radius:20px;overflow:hidden;min-width:90px;flex:1}.progress i{display:block;height:100%;background:linear-gradient(90deg,#2470df,#13a76b);border-radius:20px}
+.dash-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.dash-action{border:1px solid var(--line);background:#f9fbff;border-radius:13px;padding:16px 10px;text-align:center;font-weight:700;color:var(--navy)}
+.dash-action b{display:block;font-size:25px;margin-bottom:7px}
+.tag{font-size:11px;background:#fff2cf;color:#805900;padding:5px 8px;border-radius:20px}
+.chart-bars{height:150px;display:flex;align-items:end;gap:14px;padding:10px 8px 0;border-bottom:1px solid var(--line)}
+.chart-bars span{flex:1;background:linear-gradient(180deg,#4b91f0,#1759b5);border-radius:8px 8px 0 0;position:relative;min-width:20px}
+.chart-bars span:after{content:attr(data-v);position:absolute;top:-23px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--navy);font-weight:700}
+@media(max-width:760px){.dashboard-grid{grid-template-columns:repeat(2,1fr)}.dashboard-columns{grid-template-columns:1fr}.dash-actions{grid-template-columns:repeat(2,1fr)}.dashboard-hero{align-items:flex-start;flex-direction:column}}
+
+
+.test-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px}
+.test-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.timer{background:#fff3d6;color:#76520d;border:1px solid #f5d78c;border-radius:12px;padding:12px 16px;font-weight:800;font-size:20px}
+.question-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:14px}
+.answer-option{display:flex;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;margin:10px 0;cursor:pointer;background:#fbfcff}
+.answer-option:has(input:checked){border-color:var(--blue);background:#eef5ff}
+.answer-option input{accent-color:var(--blue);width:18px;height:18px}
+.question-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.question-nav button{padding:10px;background:#edf3fc;color:var(--navy)}
+.question-nav button.current{background:var(--blue);color:#fff}
+.question-nav button.answered{background:#dff5e8;color:#17633a}
+.test-progress{height:9px;background:#e8eef8;border-radius:20px;overflow:hidden;margin:12px 0}
+.test-progress i{display:block;width:20%;height:100%;background:linear-gradient(90deg,#2463c7,#f2b544)}
+.test-controls{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px}
+@media(max-width:760px){.test-layout{grid-template-columns:1fr}}
+
+
+.results-hero{background:linear-gradient(115deg,#0e2f68,#176bd1);color:#fff;border-radius:20px;padding:25px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.results-hero h1{margin:5px 0;font-size:clamp(24px,4vw,34px)}.results-hero p{margin:0;color:#e1edff}
+.result-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.result-metric{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}
+.result-metric strong{display:block;color:var(--navy);font-size:25px;margin:6px 0}
+.results-columns{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:13px}
+.results-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;margin-bottom:14px;min-width:0}
+.results-panel h3{color:var(--navy);margin:0 0 13px}
+.subject-result{display:grid;grid-template-columns:90px 1fr 42px;gap:9px;align-items:center;margin:14px 0;font-size:13px}
+.result-bar{height:10px;background:#e7edf7;border-radius:20px;overflow:hidden}.result-bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#1874df,#12a56c)}
+.growth-chart{height:145px;display:flex;align-items:end;gap:13px;border-bottom:1px solid var(--line);padding:12px 6px 0}
+.growth-chart span{flex:1;min-width:18px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#4c9cf5,#145dc1);position:relative}
+.growth-chart span:after{content:attr(data-score);position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;color:var(--navy)}
+.growth-labels{display:flex;justify-content:space-around;font-size:11px;color:var(--muted);margin-top:7px}
+.score-table{width:100%;border-collapse:collapse;font-size:13px}.score-table th,.score-table td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line)}.score-pill{background:#e4f8ec;color:#16713f;border-radius:20px;padding:4px 8px;font-weight:700}
+.mistake{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.mistake:last-child{border:0}
+.admission-score{width:105px;height:105px;border-radius:50%;border:12px solid #20ad65;border-left-color:#dce7f4;display:grid;place-items:center;font-size:24px;font-weight:800;color:var(--navy);margin:8px auto}
+@media(max-width:850px){.results-columns{grid-template-columns:1fr 1fr}.result-metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.results-columns{grid-template-columns:1fr}.subject-result{grid-template-columns:80px 1fr 38px}.results-hero{align-items:flex-start;flex-direction:column}}
+
+
+.extra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.extra-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px}
+.extra-card h3{margin:8px 0;color:var(--navy)}.extra-card p{color:var(--muted);font-size:13px;line-height:1.5}
+.profile-layout{display:grid;grid-template-columns:280px 1fr;gap:14px}
+.profile-avatar{width:100px;height:100px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#dbeaff,#fff2cf);font-size:48px;margin:auto}
+.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.plan-item{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.plan-item input{width:18px;height:18px;accent-color:var(--blue)}
+.university-card{display:grid;grid-template-columns:68px 1fr auto;gap:13px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:13px;background:#fff;margin:10px 0}
+.university-icon{width:60px;height:60px;border-radius:13px;background:#edf4ff;display:grid;place-items:center;font-size:30px}
+.status-pending{background:#fff3d6;color:#805900;padding:5px 9px;border-radius:18px;font-size:11px;font-weight:700}
+@media(max-width:760px){.extra-grid{grid-template-columns:1fr 1fr}.profile-layout{grid-template-columns:1fr}.profile-form{grid-template-columns:1fr}.university-card{grid-template-columns:52px 1fr}.university-card button{grid-column:1/-1}}
+@media(max-width:480px){.extra-grid{grid-template-columns:1fr}}
+
+
+.main-nav{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+.main-nav>.navbtn{white-space:nowrap;padding:10px 12px}
+.nav-menu{position:relative}
+.nav-menu summary{list-style:none;cursor:pointer;color:#fff;background:#ffffff18;border-radius:10px;padding:11px 13px;font-size:14px;font-weight:700;white-space:nowrap}
+.nav-menu summary::-webkit-details-marker{display:none}
+.nav-menu[open] summary,.nav-menu summary:hover{background:#ffffff30}
+.nav-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:220px;max-height:70vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:13px;padding:7px;box-shadow:0 12px 30px #071b4330;z-index:20;display:grid;gap:4px}
+.nav-dropdown .navbtn{color:var(--navy);background:#fff;text-align:left;width:100%;white-space:normal}
+.nav-dropdown .navbtn:hover,.nav-dropdown .navbtn.active{background:#edf4ff;color:var(--navy)}
+.main-nav .login-nav{margin-left:auto;background:var(--gold);color:#192b46;white-space:nowrap}
+@media(max-width:1050px){.main-nav{flex-wrap:wrap}.main-nav .login-nav{margin-left:0}}
+@media(max-width:720px){.main-nav{width:100%;overflow:visible;flex-wrap:wrap}.main-nav>.navbtn,.nav-menu summary{font-size:12px;padding:9px 10px}.nav-dropdown{left:auto;right:0}}
+
 </style>
 </head>
 <body>
 <header>
  <div class="top">
   <div class="brand"><div class="logo">A27</div><div>ABITURIYENT 2027<small>BILIM • MAQSAD • KELAJAK</small></div></div>
-  <nav>
+  <nav class="main-nav">
    <button class="navbtn active" data-page="home">Bosh sahifa</button>
    <button class="navbtn" data-page="subjects">Fanlar</button>
    <button class="navbtn" data-page="directions">Yo‘nalishlar</button>
    <button class="navbtn" data-page="tests">Testlar</button>
-   <button class="navbtn" data-page="auth">Kirish</button>
+   <button class="navbtn" data-page="results">Natijalar</button>
+   <details class="nav-menu"><summary>Kabinetlar ▾</summary><div class="nav-dropdown">
+    <button class="navbtn" data-page="studentDash">O‘quvchi kabineti</button>
+    <button class="navbtn" data-page="teacherDash">O‘qituvchi kabineti</button>
+    <button class="navbtn" data-page="adminDash">Administrator kabineti</button>
+    <button class="navbtn" data-page="profile">Shaxsiy profil</button>
+   </div></details>
+   <details class="nav-menu"><summary>Qo‘shimcha ▾</summary><div class="nav-dropdown">
+    <button class="navbtn" data-page="testRoom">Test ishlash</button>
+    <button class="navbtn" data-page="otmCatalog">OTM katalogi</button>
+    <button class="navbtn" data-page="prepPlan">Tayyorlanish rejasi</button>
+    <button class="navbtn" data-page="favorites">Saqlangan testlar</button>
+    <button class="navbtn" data-page="questionReview">Savollarni tekshirish</button>
+    <button class="navbtn" data-page="settings">Sozlamalar</button>
+   </div></details>
+   <button class="navbtn login-nav" data-page="auth">Kirish</button>
   </nav>
  </div>
 </header>
@@ -79,6 +181,178 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
    </div>
   </div>
  </section>
+
+ <section id="studentDash" class="page">
+  <div class="section-head"><div><h2>O‘quvchi shaxsiy kabineti</h2><p>Bilimingiz, tayyorgarligingiz va natijalaringiz — bir joyda</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+  <div class="dashboard-hero"><div><div class="eyebrow">ABITURIYENT 2027</div><h1>Xush kelibsiz, Abituriyent!</h1><p>Bugungi kichik qadam — ertangi katta muvaffaqiyat.</p></div><div style="font-size:64px">🎓</div></div>
+  <div class="dashboard-grid">
+   <div class="metric">📚<strong>16</strong><span>Mavjud fanlar</span></div><div class="metric">📝<strong>28</strong><span>Ishlangan testlar</span></div><div class="metric">📈<strong>76%</strong><span>O‘rtacha natija</span></div><div class="metric">🏆<strong>12-o‘rin</strong><span>Namunaviy reyting</span></div>
+  </div>
+  <div class="dashboard-columns">
+   <div class="dash-panel"><h3>📘 Mening fanlarim</h3>
+    <div class="dash-row"><b>Matematika</b><div class="progress"><i style="width:85%"></i></div><b>85%</b></div>
+    <div class="dash-row"><b>Fizika</b><div class="progress"><i style="width:72%"></i></div><b>72%</b></div>
+    <div class="dash-row"><b>Kimyo</b><div class="progress"><i style="width:68%"></i></div><b>68%</b></div>
+    <div class="dash-row"><b>Informatika</b><div class="progress"><i style="width:90%"></i></div><b>90%</b></div>
+   </div>
+   <div class="dash-panel"><h3>⚡ Tezkor havolalar</h3><div class="dash-actions"><div class="dash-action"><b>📝</b>Test ishlash</div><div class="dash-action"><b>📚</b>Fan tanlash</div><div class="dash-action"><b>📊</b>Natijalar</div><div class="dash-action"><b>🏆</b>Reyting</div></div></div>
+  </div>
+  <div class="dash-panel"><h3>📋 So‘nggi testlar</h3><div class="dash-row">Matematika — 5-mashq testi <span class="tag">88%</span></div><div class="dash-row">Fizika — nazorat testi <span class="tag">76%</span></div><div class="dash-row">Kimyo — 4-mavzu testi <span class="tag">64%</span></div></div>
+ </section>
+ <section id="teacherDash" class="page">
+  <div class="section-head"><div><h2>O‘qituvchi shaxsiy kabineti</h2><p>Savollar, testlar va o‘quvchilar natijalarini boshqarish</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+  <div class="dashboard-hero"><div><div class="eyebrow">USTOZ FAOLIYATI</div><h1>Xush kelibsiz, O‘qituvchi!</h1><p>Sifatli savol — adolatli baholashning boshlanishi.</p></div><div style="font-size:64px">👩‍🏫</div></div>
+  <div class="dashboard-grid"><div class="metric">✍️<strong>128</strong><span>Yaratilgan savollar</span></div><div class="metric">🧩<strong>24</strong><span>Tuzilgan testlar</span></div><div class="metric">👥<strong>436</strong><span>Test topshirishlar</span></div><div class="metric">🏆<strong>78%</strong><span>O‘quvchilar o‘rtacha natijasi</span></div></div>
+  <div class="dashboard-columns">
+   <div class="dash-panel"><h3>⚡ Tezkor amallar</h3><div class="dash-actions"><div class="dash-action"><b>➕</b>Yangi savol kiritish</div><div class="dash-action"><b>📝</b>Yangi test tuzish</div><div class="dash-action"><b>📚</b>Savollarim ro‘yxati</div><div class="dash-action"><b>📊</b>Natijalarni ko‘rish</div><div class="dash-action"><b>📈</b>Tahlil va statistika</div><div class="dash-action"><b>📨</b>Adminga yuborish</div></div></div>
+   <div class="dash-panel"><h3>📊 Fan bo‘yicha natijalar</h3><div class="dash-row"><b>Informatika</b><div class="progress"><i style="width:78%"></i></div><b>78%</b></div><div class="dash-row"><b>Matematika</b><div class="progress"><i style="width:72%"></i></div><b>72%</b></div><div class="dash-row"><b>Fizika</b><div class="progress"><i style="width:68%"></i></div><b>68%</b></div></div>
+  </div>
+  <div class="dash-panel"><h3>📌 So‘nggi faoliyat</h3><div class="dash-row">“Kompyuter qurilmalari” mavzusidan 20 ta savol qo‘shildi <span class="tag">Bugun</span></div><div class="dash-row">“Axborot va uning birliklari” testi yaratildi <span class="tag">Bugun</span></div><div class="dash-row">Test administratorga tekshirish uchun yuborildi <span class="tag">Kecha</span></div></div>
+ </section>
+ <section id="adminDash" class="page">
+  <div class="section-head"><div><h2>Administrator boshqaruv paneli</h2><p>Platforma, foydalanuvchilar va testlar nazorati</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+  <div class="dashboard-hero"><div><div class="eyebrow">TIZIM BOSHQARUVI</div><h1>ABITURIYENT 2027</h1><p>Platforma faoliyatini yagona markazdan boshqaring.</p></div><div style="font-size:64px">⚙️</div></div>
+  <div class="dashboard-grid"><div class="metric">👥<strong>5 842</strong><span>Jami foydalanuvchilar</span></div><div class="metric">👩‍🏫<strong>128</strong><span>O‘qituvchilar</span></div><div class="metric">🎓<strong>5 714</strong><span>Abituriyentlar</span></div><div class="metric">✅<strong>1 256</strong><span>Tasdiqlangan testlar</span></div></div>
+  <div class="dashboard-columns">
+   <div class="dash-panel"><h3>⏳ Kutilayotgan vazifalar</h3><div class="dash-row">Tekshirish uchun yangi savollar <span class="tag">12 ta</span></div><div class="dash-row">Tasdiqlashga yuborilgan testlar <span class="tag">4 ta</span></div><div class="dash-row">Yangi ro‘yxatdan o‘tgan o‘qituvchilar <span class="tag">3 ta</span></div><div class="dash-row">Yangi abituriyentlar <span class="tag">180 ta</span></div></div>
+   <div class="dash-panel"><h3>📊 Testlar statistikasi</h3><div class="chart-bars"><span style="height:45%" data-v="420"></span><span style="height:62%" data-v="650"></span><span style="height:78%" data-v="780"></span><span style="height:92%" data-v="920"></span></div><p class="muted">Oxirgi 4 hafta bo‘yicha namunaviy ko‘rsatkichlar</p></div>
+  </div>
+  <div class="dash-panel"><h3>🛠 Boshqaruv bo‘limlari</h3><div class="dash-actions"><div class="dash-action"><b>👤</b>Foydalanuvchilar</div><div class="dash-action"><b>👩‍🏫</b>O‘qituvchilar</div><div class="dash-action"><b>🎓</b>Abituriyentlar</div><div class="dash-action"><b>📝</b>Savollarni tekshirish</div><div class="dash-action"><b>✅</b>Testlarni tasdiqlash</div><div class="dash-action"><b>📈</b>Statistika</div></div></div>
+ </section>
+
+
+ <section id="testRoom" class="page">
+  <div class="section-head"><div><h2>Onlayn test sinovi</h2><p>Bilimingizni sinang va natijangizni kuzating</p></div><span class="tag">INTERFEYS NAMUNASI</span></div>
+  <div class="dash-panel">
+   <div class="test-top"><div><b>📘 Matematika — Namunaviy test</b><p class="muted">5 ta savol · Har bir savol 1 balldan</p></div><div class="timer" id="testTimer">30:00</div></div>
+   <div class="test-progress"><i id="testProgress"></i></div>
+   <div class="test-layout">
+    <div>
+     <div class="question-card">
+      <div class="test-top"><span class="tag" id="questionNumber">1-savol / 5</span><span class="muted">Bitta javobni tanlang</span></div>
+      <h3 id="questionText">12 × 8 ifodaning qiymatini toping.</h3>
+      <div id="answerOptions">
+       <label class="answer-option"><input type="radio" name="demoAnswer" value="0"><span> A) 86</span></label>
+       <label class="answer-option"><input type="radio" name="demoAnswer" value="1"><span> B) 96</span></label>
+       <label class="answer-option"><input type="radio" name="demoAnswer" value="2"><span> C) 108</span></label>
+       <label class="answer-option"><input type="radio" name="demoAnswer" value="3"><span> D)  Alohida javob</span></label>
+      </div>
+      <div class="test-controls"><button class="btn-light" id="prevQuestion">← Oldingi</button><button class="btn-blue" id="nextQuestion">Keyingi →</button><button class="btn-gold" id="finishTest">Testni yakunlash</button></div>
+     </div>
+    </div>
+    <aside class="dash-panel">
+     <h3>🧭 Savollar xaritasi</h3><p class="muted">Javob berilgan savollar yashil rangda ko‘rinadi.</p>
+     <div class="question-nav" id="questionNav">
+      <button class="current">1</button><button>2</button><button>3</button><button>4</button><button>5</button>
+     </div>
+     <div class="dash-row"><span>Javob berildi</span><b id="answeredCount">0 / 5</b></div>
+     <div class="dash-row"><span>Qolgan savollar</span><b id="remainingCount">5</b></div>
+     <div class="notice">Bu sahifa hozircha dizayn va ishlash namunasidir. Haqiqiy savollar bazaga ulangandan keyin chiqadi.</div>
+    </aside>
+   </div>
+   <div id="testResult" class="notice" style="display:none"></div>
+  </div>
+ </section>
+
+
+ <section id="results" class="page">
+  <div class="section-head"><div><h2>Test natijalari va reyting</h2><p>Bilimingizni tahlil qiling, rivojlanishingizni kuzating</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+  <div class="results-hero"><div><div class="eyebrow">ABITURIYENT 2027</div><h1>Natijalaringiz — kelajak sari qadam!</h1><p>Fanlar kesimida natijalar, testlar tarixi va tayyorgarlik ko‘rsatkichlari.</p></div><div style="font-size:58px">🏆</div></div>
+  <div class="result-metrics">
+   <div class="result-metric">🏅<strong>248,6 / 300</strong><span class="muted">Umumiy ball</span></div>
+   <div class="result-metric">📈<strong>82,9%</strong><span class="muted">O‘zlashtirish</span></div>
+   <div class="result-metric">🏆<strong>156-o‘rin</strong><span class="muted">Namunaviy reyting</span></div>
+   <div class="result-metric">📝<strong>28 ta</strong><span class="muted">Ishlangan test</span></div>
+  </div>
+  <div class="results-columns">
+   <div class="results-panel"><h3>🎯 Fanlar bo‘yicha natijalar</h3>
+    <div class="subject-result"><b>Matematika</b><div class="result-bar"><i style="width:84%"></i></div><b>84%</b></div>
+    <div class="subject-result"><b>Informatika</b><div class="result-bar"><i style="width:88%"></i></div><b>88%</b></div>
+    <div class="subject-result"><b>Fizika</b><div class="result-bar"><i style="width:76%"></i></div><b>76%</b></div>
+    <div class="subject-result"><b>Ona tili</b><div class="result-bar"><i style="width:82%"></i></div><b>82%</b></div>
+   </div>
+   <div class="results-panel"><h3>📊 Natijalarning o‘sish grafigi</h3>
+    <div class="growth-chart"><span style="height:55%" data-score="62%"></span><span style="height:66%" data-score="68%"></span><span style="height:74%" data-score="74%"></span><span style="height:82%" data-score="79%"></span><span style="height:90%" data-score="82,9%"></span></div>
+    <div class="growth-labels"><span>1-test</span><span>2-test</span><span>3-test</span><span>4-test</span><span>5-test</span></div>
+   </div>
+   <div class="results-panel"><h3>🎓 OTMga tayyorgarlik</h3><div class="admission-score">88%</div><b>Tanlangan yo‘nalish: Kompyuter injiniringi</b><p class="muted">Bu faqat namunaviy ko‘rsatkich. Haqiqiy qabul imkoniyati rasmiy o‘tish ballari va natijalarga bog‘liq.</p></div>
+  </div>
+  <div class="results-columns">
+   <div class="results-panel" style="grid-column:span 2"><h3>🗓 Ishlangan testlar tarixi</h3>
+    <table class="score-table"><thead><tr><th>Test nomi</th><th>Sana</th><th>Ball</th><th>Natija</th></tr></thead><tbody>
+     <tr><td>Matematika — 10-mavzu</td><td>2-noyabr</td><td>42/50</td><td><span class="score-pill">84%</span></td></tr>
+     <tr><td>Informatika — 8-mavzu</td><td>26-oktabr</td><td>44/50</td><td><span class="score-pill">88%</span></td></tr>
+     <tr><td>Fizika — Elektr toki</td><td>19-oktabr</td><td>38/50</td><td><span class="score-pill">76%</span></td></tr>
+     <tr><td>Ona tili — Matn tahlili</td><td>12-oktabr</td><td>41/50</td><td><span class="score-pill">82%</span></td></tr>
+    </tbody></table>
+   </div>
+   <div class="results-panel"><h3>⚠️ Qayta ishlash kerak</h3>
+    <div class="mistake"><span>Trigonometriya asoslari</span><b>6 ta</b></div>
+    <div class="mistake"><span>Elektr zanjirlari</span><b>4 ta</b></div>
+    <div class="mistake"><span>Algoritm va dasturlash</span><b>3 ta</b></div>
+    <div class="mistake"><span>Matn uslublari</span><b>2 ta</b></div>
+   </div>
+  </div>
+  <div class="notice">Eslatma: bu sahifadagi ballar, reyting va grafiklar dizaynni ko‘rsatish uchun namunaviy ma’lumotlardir. Hozircha Supabase bazasidan olinmaydi va saqlanmaydi.</div>
+ </section>
+
+
+<section id="profile" class="page">
+ <div class="section-head"><div><h2>Shaxsiy profil</h2><p>Shaxsiy va ta’lim ma’lumotlaringizni boshqaring</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+ <div class="profile-layout">
+  <div class="results-panel" style="text-align:center"><div class="profile-avatar">👩‍🎓</div><h3>Abituriyent profili</h3><p class="muted">Profil rasmi va asosiy ma’lumotlar</p><button class="btn-light">Rasmni o‘zgartirish</button></div>
+  <div class="results-panel"><h3>📋 Shaxsiy ma’lumotlar</h3><div class="profile-form">
+   <div class="field"><label>Ism</label><input placeholder="Ismingiz"></div><div class="field"><label>Familiya</label><input placeholder="Familiyangiz"></div>
+   <div class="field"><label>Email</label><input type="email" placeholder="example@gmail.com"></div><div class="field"><label>Telefon</label><input placeholder="+998 __ ___ __ __"></div>
+   <div class="field"><label>Maktab</label><input placeholder="Maktab nomi"></div><div class="field"><label>Sinf</label><select><option>11-sinf</option><option>10-sinf</option><option>9-sinf</option></select></div>
+   <div class="field"><label>Viloyat</label><input placeholder="Viloyat"></div><div class="field"><label>Shahar / tuman</label><input placeholder="Shahar yoki tuman"></div>
+  </div><button class="btn-blue">Ma’lumotlarni saqlash</button><p class="muted">Bu forma hozircha dizayn namunasi; ma’lumotlar saqlash funksiyasi keyin ulanadi.</p></div>
+ </div>
+</section>
+<section id="otmCatalog" class="page">
+ <div class="section-head"><div><h2>OTM va ta’lim yo‘nalishlari</h2><p>Oliy ta’lim muassasasi va yo‘nalishlarni tanlang</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+ <div class="results-panel"><div class="profile-form"><div class="field"><label>Universitet qidirish</label><input placeholder="Universitet nomini kiriting"></div><div class="field"><label>Viloyat</label><select><option>Barcha hududlar</option><option>Navoiy</option><option>Toshkent</option><option>Samarqand</option></select></div><div class="field"><label>Ta’lim shakli</label><select><option>Barchasi</option><option>Kunduzgi</option><option>Kechki</option><option>Masofaviy</option></select></div><div class="field"><label>Yo‘nalish nomi</label><input placeholder="Masalan, Kompyuter injiniringi"></div></div></div>
+ <div class="university-card"><div class="university-icon">🏛️</div><div><b>Navoiy davlat universiteti</b><p class="muted">Kompyuter injiniringi · Matematika va Informatika</p><span class="muted">O‘tish ballari: rasmiy ma’lumot bilan to‘ldiriladi</span></div><button class="btn-light">Batafsil</button></div>
+ <div class="university-card"><div class="university-icon">🎓</div><div><b>Toshkent axborot texnologiyalari universiteti</b><p class="muted">Dasturiy injiniring · Axborot xavfsizligi</p><span class="muted">O‘tish ballari: rasmiy ma’lumot bilan to‘ldiriladi</span></div><button class="btn-light">Batafsil</button></div>
+ <div class="notice">Universitet va yo‘nalish nomlari namuna sifatida kiritilgan. Qabul kvotalari va o‘tish ballari rasmiy manbadan tekshirilgach joylashtiriladi.</div>
+</section>
+<section id="prepPlan" class="page">
+ <div class="section-head"><div><h2>Tayyorlanish rejasi</h2><p>Kunlik va haftalik maqsadlaringizni belgilang</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+ <div class="result-metrics"><div class="result-metric">📅<strong>5 kun</strong><span class="muted">Haftalik reja</span></div><div class="result-metric">⏱️<strong>2 soat</strong><span class="muted">Kunlik maqsad</span></div><div class="result-metric">✅<strong>8 / 12</strong><span class="muted">Bajarilgan vazifa</span></div><div class="result-metric">🔥<strong>4 kun</strong><span class="muted">Ketma-ket tayyorgarlik</span></div></div>
+ <div class="results-panel"><h3>🗓 Bugungi vazifalar</h3>
+  <label class="plan-item"><input type="checkbox"><span><b>Matematika</b><br><small class="muted">Kvadrat tenglamalar — 20 ta misol</small></span><span class="tag">40 daqiqa</span></label>
+  <label class="plan-item"><input type="checkbox"><span><b>Informatika</b><br><small class="muted">Algoritmlar — mavzuni takrorlash</small></span><span class="tag">30 daqiqa</span></label>
+  <label class="plan-item"><input type="checkbox"><span><b>Fizika</b><br><small class="muted">Elektr toki — 15 ta test</small></span><span class="tag">30 daqiqa</span></label>
+  <label class="plan-item"><input type="checkbox"><span><b>Ona tili</b><br><small class="muted">Matn tahlili — mashqlar</small></span><span class="tag">20 daqiqa</span></label>
+ </div>
+</section>
+<section id="favorites" class="page">
+ <div class="section-head"><div><h2>Saqlangan testlar va savollar</h2><p>Keyinroq ishlash uchun saqlangan materiallar</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+ <div class="extra-grid">
+  <div class="extra-card"><div style="font-size:30px">📘</div><h3>Matematika: Algebra</h3><p>Chiziqli tenglamalar bo‘yicha 20 ta savol.</p><span class="tag">Test</span></div>
+  <div class="extra-card"><div style="font-size:30px">💻</div><h3>Informatika: Algoritmlar</h3><p>Algoritm va dasturlash asoslari.</p><span class="tag">Mavzu</span></div>
+  <div class="extra-card"><div style="font-size:30px">⚛️</div><h3>Fizika: Elektr toki</h3><p>Tok kuchi, kuchlanish va qarshilik.</p><span class="tag">Test</span></div>
+ </div>
+ <div class="notice">Sevimlilar ro‘yxati hozircha namuna. Saqlash tugmasi keyingi funksional bosqichda ulanadi.</div>
+</section>
+<section id="questionReview" class="page">
+ <div class="section-head"><div><h2>Savollarni tekshirish</h2><p>O‘qituvchilar yuborgan savollarni ko‘rib chiqish paneli</p></div><span class="tag">ADMINISTRATOR</span></div>
+ <div class="result-metrics"><div class="result-metric">🕒<strong>12</strong><span class="muted">Kutilayotgan savollar</span></div><div class="result-metric">✅<strong>86</strong><span class="muted">Tasdiqlangan</span></div><div class="result-metric">↩️<strong>3</strong><span class="muted">Tahrirga qaytarilgan</span></div><div class="result-metric">❌<strong>2</strong><span class="muted">Rad etilgan</span></div></div>
+ <div class="results-panel"><h3>📥 Tekshirish uchun yuborilgan savollar</h3>
+  <div class="dash-row"><span><b>Matematika</b><br><small class="muted">Kvadrat tenglamalar · O‘qituvchi: A. Karimov</small></span><span class="status-pending">Kutilmoqda</span><button class="btn-light">Ko‘rish</button></div>
+  <div class="dash-row"><span><b>Informatika</b><br><small class="muted">Algoritmlar · O‘qituvchi: D. Davronova</small></span><span class="status-pending">Kutilmoqda</span><button class="btn-light">Ko‘rish</button></div>
+  <div class="dash-row"><span><b>Fizika</b><br><small class="muted">Elektr zanjiri · O‘qituvchi: M. Aliyev</small></span><span class="status-pending">Kutilmoqda</span><button class="btn-light">Ko‘rish</button></div>
+ </div>
+ <div class="notice">Bu ko‘rinish administrator uchun namuna. Savollarni tasdiqlash va rad etish amallari keyin ma’lumotlar bazasiga ulanadi.</div>
+</section>
+<section id="settings" class="page">
+ <div class="section-head"><div><h2>Sozlamalar</h2><p>Platforma ko‘rinishi va hisob xavfsizligi</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
+ <div class="results-panel"><h3>🌐 Til sozlamalari</h3><div class="field"><label>Interfeys tili</label><select><option>O‘zbek tili</option><option>Русский</option></select></div></div>
+ <div class="results-panel"><h3>🔐 Hisob xavfsizligi</h3><div class="field"><label>Email manzil</label><input type="email" placeholder="example@gmail.com"></div><div class="field"><label>Joriy parol</label><input type="password" placeholder="Joriy parol"></div><div class="field"><label>Yangi parol</label><input type="password" placeholder="Yangi parol"></div><button class="btn-blue">Sozlamalarni saqlash</button></div>
+ <div class="results-panel"><h3>🔔 Bildirishnomalar</h3><label class="plan-item"><input type="checkbox" checked><span>Yangi testlar haqida xabar</span></label><label class="plan-item"><input type="checkbox" checked><span>Natijalar yangilanganda xabar</span></label><label class="plan-item"><input type="checkbox"><span>Haftalik tayyorgarlik eslatmasi</span></label></div>
+ <div class="notice">Sozlamalar hozircha ko‘rinish namunasi. Saqlash va bildirishnoma funksiyalari keyin ulanadi.</div>
+</section>
+
 </main>
 <footer>© 2026 ABITURIYENT 2027 · Bilim — kelajak kaliti</footer>
 <script type="module">
@@ -93,6 +367,7 @@ if (configured) {
 }
 
 function showPage(id){
+ document.querySelectorAll('.nav-menu[open]').forEach(m=>m.removeAttribute('open'));
  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
  window.scrollTo({top:0,behavior:'smooth'});
@@ -146,8 +421,40 @@ document.getElementById('loginBtn').addEventListener('click',async()=>{
  const {error}=await supabase.auth.signInWithPassword({phone,password});
  tell(error?error.message:'Tizimga muvaffaqiyatli kirdingiz!',!!error);
 });
+
+// Test sahifasi uchun demo interaktivligi — haqiqiy natija bazaga ulanmagan.
+const demoQuestions=[
+ {q:'12 × 8 ifodaning qiymatini toping.',a:['86','96','108','120'],correct:1},
+ {q:'144 sonining kvadrat ildizi nechaga teng?',a:['10','11','12','14'],correct:2},
+ {q:'2x = 18 bo‘lsa, x ni toping.',a:['6','8','9','12'],correct:2},
+ {q:'1/2 + 1/4 yig‘indini toping.',a:['1/4','2/4','3/4','1'],correct:2},
+ {q:'Kvadratning 1 tomoni 5 sm. Perimetri nechaga teng?',a:['10 sm','15 sm','20 sm','25 sm'],correct:2}
+];
+let demoIndex=0;const demoAnswers={};
+function renderDemoQuestion(){
+ const q=demoQuestions[demoIndex];
+ document.getElementById('questionNumber').textContent=(demoIndex+1)+'-savol / '+demoQuestions.length;
+ document.getElementById('questionText').textContent=q.q;
+ document.getElementById('answerOptions').innerHTML=q.a.map((a,i)=>`<label class="answer-option"><input type="radio" name="demoAnswer" value="${i}" ${demoAnswers[demoIndex]===i?'checked':''}><span>${String.fromCharCode(65+i)}) ${a}</span></label>`).join('');
+ document.getElementById('testProgress').style.width=((demoIndex+1)/demoQuestions.length*100)+'%';
+ document.querySelectorAll('#questionNav button').forEach((b,i)=>{b.classList.toggle('current',i===demoIndex);b.classList.toggle('answered',demoAnswers[i]!==undefined)});
+ document.getElementById('answeredCount').textContent=Object.keys(demoAnswers).length+' / '+demoQuestions.length;
+ document.getElementById('remainingCount').textContent=demoQuestions.length-Object.keys(demoAnswers).length;
+}
+document.getElementById('answerOptions').addEventListener('change',e=>{if(e.target.name==='demoAnswer'){demoAnswers[demoIndex]=Number(e.target.value);renderDemoQuestion()}});
+document.getElementById('prevQuestion').addEventListener('click',()=>{demoIndex=Math.max(0,demoIndex-1);renderDemoQuestion()});
+document.getElementById('nextQuestion').addEventListener('click',()=>{demoIndex=Math.min(demoQuestions.length-1,demoIndex+1);renderDemoQuestion()});
+document.getElementById('questionNav').addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){demoIndex=Number(e.target.textContent)-1;renderDemoQuestion()}});
+document.getElementById('finishTest').addEventListener('click',()=>{
+ const correct=demoQuestions.reduce((n,q,i)=>n+(demoAnswers[i]===q.correct?1:0),0);
+ const box=document.getElementById('testResult');box.style.display='block';box.className='notice success';
+ box.textContent=`Namuna test yakunlandi. To‘g‘ri javoblar: ${correct} / ${demoQuestions.length}. Bu faqat dizayn sinovi; natija saqlanmaydi.`;
+});
+renderDemoQuestion();
+
 </script>
 </body>
 </html>
+
 
 
