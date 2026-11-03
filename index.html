@@ -424,24 +424,43 @@ document.getElementById('loginBtn').addEventListener('click',async()=>{
  tell(error?error.message:'Tizimga muvaffaqiyatli kirdingiz!',!!error);
 });
 document.getElementById('forgotPasswordBtn').addEventListener('click',async()=>{
- if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Sahifani yangilang.',true);
+ if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Saytni yangilang va qayta urinib ko‘ring.',true);
  const email=document.getElementById('email').value.trim();
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return tell('Avval email manzilingizni kiriting.',true);
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return tell('Avval yuqoridagi Email manzili maydoniga emailingizni kiriting.',true);
+ const btn=document.getElementById('forgotPasswordBtn');
+ btn.disabled=true;
  const redirectTo=window.location.origin+window.location.pathname;
- const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo});
- tell(error?'Parol tiklash xati yuborilmadi: '+error.message:'Parolni tiklash havolasi emailingizga yuborildi. Emailingizni, Spam papkasini ham tekshiring.');
+ try{
+  const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo});
+  if(error)tell('Xatolik: '+error.message,true);
+  else tell('Parolni tiklash havolasi '+email+' manziliga yuborildi. Emailingizdagi xatni oching. Spam yoki Keraksiz xatlar papkasini ham tekshiring.');
+ }catch(err){
+  tell('So‘rov yuborilmadi: '+(err?.message||'Noma’lum xatolik'),true);
+ }finally{btn.disabled=false;}
 });
 supabase?.auth.onAuthStateChange((event)=>{
- if(event==='PASSWORD_RECOVERY'){document.getElementById('recoveryPanel').style.display='block';tell('Emaildagi havola tasdiqlandi. Endi yangi parol kiriting.');showPage('auth');}
+ if(event==='PASSWORD_RECOVERY'){
+  document.getElementById('recoveryPanel').style.display='block';
+  tell('Parolni tiklash havolasi tasdiqlandi. Quyidagi maydonga yangi parol kiriting.');
+  showPage('auth');
+ }
 });
 document.getElementById('saveNewPasswordBtn').addEventListener('click',async()=>{
+ if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Saytni yangilang.',true);
  const password=document.getElementById('newPassword').value;
  if(password.length<8)return tell('Yangi parol kamida 8 ta belgidan iborat bo‘lsin.',true);
- const {error}=await supabase.auth.updateUser({password});
- if(error)return tell('Parol yangilanmadi: '+error.message,true);
- document.getElementById('recoveryPanel').style.display='none';
- document.getElementById('password').value=password;
- tell('Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan kiring.');
+ const btn=document.getElementById('saveNewPasswordBtn');
+ btn.disabled=true;
+ try{
+  const {error}=await supabase.auth.updateUser({password});
+  if(error)return tell('Parol yangilanmadi: '+error.message,true);
+  document.getElementById('recoveryPanel').style.display='none';
+  document.getElementById('password').value=password;
+  document.getElementById('newPassword').value='';
+  tell('Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan tizimga kiring.');
+ }catch(err){
+  tell('Parolni saqlashda xatolik: '+(err?.message||'Noma’lum xatolik'),true);
+ }finally{btn.disabled=false;}
 });
 
 // Test sahifasi uchun demo interaktivligi — haqiqiy natija bazaga ulanmagan.
