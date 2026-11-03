@@ -191,14 +191,12 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
   <div class="section-head"><div><h2>O‘quvchi shaxsiy kabineti</h2><p>Bilimingiz, tayyorgarligingiz va natijalaringiz — bir joyda</p></div><span class="tag">DIZAYN NAMUNASI</span></div>
   <div class="dashboard-hero"><div><div class="eyebrow">ABITURIYENT 2027</div><h1>Xush kelibsiz, Abituriyent!</h1><p>Bugungi kichik qadam — ertangi katta muvaffaqiyat.</p></div><div style="font-size:64px">🎓</div></div>
   <div class="dashboard-grid">
-   <div class="metric">📚<strong>16</strong><span>Mavjud fanlar</span></div><div class="metric">📝<strong>28</strong><span>Ishlangan testlar</span></div><div class="metric">📈<strong>76%</strong><span>O‘rtacha natija</span></div><div class="metric">🏆<strong>12-o‘rin</strong><span>Namunaviy reyting</span></div>
+   <div class="metric">📚<strong id="studentSubjectTotal">—</strong><span>Mavjud fanlar</span></div><div class="metric">📝<strong>28</strong><span>Ishlangan testlar</span></div><div class="metric">📈<strong>76%</strong><span>O‘rtacha natija</span></div><div class="metric">🏆<strong>12-o‘rin</strong><span>Namunaviy reyting</span></div>
   </div>
   <div class="dashboard-columns">
-   <div class="dash-panel"><h3>📘 Mening fanlarim</h3>
-    <div class="dash-row"><b>Matematika</b><div class="progress"><i style="width:85%"></i></div><b>85%</b></div>
-    <div class="dash-row"><b>Fizika</b><div class="progress"><i style="width:72%"></i></div><b>72%</b></div>
-    <div class="dash-row"><b>Kimyo</b><div class="progress"><i style="width:68%"></i></div><b>68%</b></div>
-    <div class="dash-row"><b>Informatika</b><div class="progress"><i style="width:90%"></i></div><b>90%</b></div>
+   <div class="dash-panel"><h3>📘 Mening fanlarim <span class="tag" id="studentSubjectCount">Yuklanmoqda</span></h3>
+    <div id="studentSubjectsList" class="list"><div class="dash-row"><span>Fanlar yuklanmoqda…</span></div></div>
+    <p class="muted" style="margin:12px 0 0">Ro‘yxat Supabase bazasidagi fanlar katalogidan olinadi.</p>
    </div>
    <div class="dash-panel"><h3>⚡ Tezkor havolalar</h3><div class="dash-actions"><div class="dash-action"><b>📝</b>Test ishlash</div><div class="dash-action"><b>📚</b>Fan tanlash</div><div class="dash-action"><b>📊</b>Natijalar</div><div class="dash-action"><b>🏆</b>Reyting</div></div></div>
   </div>
@@ -386,22 +384,47 @@ const directionsList=document.getElementById('directionsList');
 function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
  function pickName(row){return row.name_uz||row.name||row.title||row.code||'Fan nomi';}
 async function loadTable(table,container,countId,label){
- if(!supabase){container.innerHTML='<div class="panel">Supabase kaliti qo‘shilgach, '+label.toLowerCase()+' shu yerda ko‘rinadi.</div>';return;}
- const {data,error}=await supabase.from(table).select('*').limit(100);
- if(error){container.innerHTML='<div class="notice error">“'+safeText(table)+'” jadvalidan ma’lumot olinmadi: '+safeText(error.message)+'</div>';return;}
- document.getElementById(countId).textContent=data.length;
- container.innerHTML=data.length?data.map(row=>'<div class="list-item"><span>📘 '+safeText(pickName(row))+'</span><small>'+safeText(table)+'</small></div>').join(''):'<div class="panel">Hozircha ma’lumot yo‘q.</div>';
+ if(!supabase){container.innerHTML='<div class="panel">Supabase bilan ulanish mavjud emas.</div>';return [];}
+ const {data,error}=await supabase.from(table).select('*').limit(500);
+ if(error){container.innerHTML='<div class="notice error">“'+safeText(table)+'” jadvalidan ma’lumot olinmadi: '+safeText(error.message)+'</div>';return [];}
+ const rows=data||[];
+ document.getElementById(countId).textContent=rows.length;
+ container.innerHTML=rows.length?rows.map(row=>'<div class="list-item"><span>📘 '+safeText(pickName(row))+'</span><small>'+safeText(table)+'</small></div>').join(''):'<div class="panel">Hozircha ma’lumot yo‘q.</div>';
+ return rows;
+}
+function renderStudentSubjects(rows){
+ const list=document.getElementById('studentSubjectsList');
+ const count=document.getElementById('studentSubjectCount');
+ const total=document.getElementById('studentSubjectTotal');
+ if(!list||!count||!total)return;
+ const subjects=(rows||[]).filter(row=>pickName(row)!=='Fan nomi');
+ total.textContent=subjects.length;
+ count.textContent=subjects.length+' ta fan';
+ if(!subjects.length){
+  list.innerHTML='<div class="notice">Supabase bazasida hozircha fan topilmadi.</div>';
+  return;
+ }
+ list.innerHTML=subjects.map(row=>'<div class="dash-row"><b>'+safeText(pickName(row))+'</b><span class="tag">Fan katalogida</span></div>').join('');
 }
 if(configured){
  statusBox.textContent='Supabase bilan aloqa tekshirilmoqda…';
  Promise.all([
   loadTable('subjects',subjectsList,'subjectCount','Fanlar'),
   loadTable('directions',directionsList,'directionCount','Yo‘nalishlar')
- ]).then(()=>{statusBox.className='notice success';statusBox.textContent='Supabase kaliti ulandi. Kataloglar yuklanishi tekshirildi.'});
+ ]).then(([subjectRows])=>{
+  renderStudentSubjects(subjectRows);
+  statusBox.className='notice success';
+  statusBox.textContent='Supabase bilan aloqa bajarildi. Fanlar katalogi va o‘quvchi kabineti yangilandi.';
+ }).catch(error=>{
+  renderStudentSubjects([]);
+  statusBox.className='notice error';
+  statusBox.textContent='Ma’lumotlarni yuklashda xatolik: '+safeText(error.message);
+ });
 }else{
  statusBox.textContent='Dastlabki maket tayyor. Fanlar va yo‘nalishlarni bazadan chiqarish uchun Supabase publishable keyni qo‘shish kerak.';
- document.getElementById('subjectCount').textContent='16*';
- document.getElementById('directionCount').textContent='10*';
+ document.getElementById('subjectCount').textContent='—';
+ document.getElementById('directionCount').textContent='—';
+ renderStudentSubjects([]);
  loadTable('subjects',subjectsList,'subjectCount','Fanlar');
  loadTable('directions',directionsList,'directionCount','Yo‘nalishlar');
 }
@@ -424,43 +447,24 @@ document.getElementById('loginBtn').addEventListener('click',async()=>{
  tell(error?error.message:'Tizimga muvaffaqiyatli kirdingiz!',!!error);
 });
 document.getElementById('forgotPasswordBtn').addEventListener('click',async()=>{
- if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Saytni yangilang va qayta urinib ko‘ring.',true);
+ if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Sahifani yangilang.',true);
  const email=document.getElementById('email').value.trim();
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return tell('Avval yuqoridagi Email manzili maydoniga emailingizni kiriting.',true);
- const btn=document.getElementById('forgotPasswordBtn');
- btn.disabled=true;
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return tell('Avval email manzilingizni kiriting.',true);
  const redirectTo=window.location.origin+window.location.pathname;
- try{
-  const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo});
-  if(error)tell('Xatolik: '+error.message,true);
-  else tell('Parolni tiklash havolasi '+email+' manziliga yuborildi. Emailingizdagi xatni oching. Spam yoki Keraksiz xatlar papkasini ham tekshiring.');
- }catch(err){
-  tell('So‘rov yuborilmadi: '+(err?.message||'Noma’lum xatolik'),true);
- }finally{btn.disabled=false;}
+ const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo});
+ tell(error?'Parol tiklash xati yuborilmadi: '+error.message:'Parolni tiklash havolasi emailingizga yuborildi. Emailingizni, Spam papkasini ham tekshiring.');
 });
 supabase?.auth.onAuthStateChange((event)=>{
- if(event==='PASSWORD_RECOVERY'){
-  document.getElementById('recoveryPanel').style.display='block';
-  tell('Parolni tiklash havolasi tasdiqlandi. Quyidagi maydonga yangi parol kiriting.');
-  showPage('auth');
- }
+ if(event==='PASSWORD_RECOVERY'){document.getElementById('recoveryPanel').style.display='block';tell('Emaildagi havola tasdiqlandi. Endi yangi parol kiriting.');showPage('auth');}
 });
 document.getElementById('saveNewPasswordBtn').addEventListener('click',async()=>{
- if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Saytni yangilang.',true);
  const password=document.getElementById('newPassword').value;
  if(password.length<8)return tell('Yangi parol kamida 8 ta belgidan iborat bo‘lsin.',true);
- const btn=document.getElementById('saveNewPasswordBtn');
- btn.disabled=true;
- try{
-  const {error}=await supabase.auth.updateUser({password});
-  if(error)return tell('Parol yangilanmadi: '+error.message,true);
-  document.getElementById('recoveryPanel').style.display='none';
-  document.getElementById('password').value=password;
-  document.getElementById('newPassword').value='';
-  tell('Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan tizimga kiring.');
- }catch(err){
-  tell('Parolni saqlashda xatolik: '+(err?.message||'Noma’lum xatolik'),true);
- }finally{btn.disabled=false;}
+ const {error}=await supabase.auth.updateUser({password});
+ if(error)return tell('Parol yangilanmadi: '+error.message,true);
+ document.getElementById('recoveryPanel').style.display='none';
+ document.getElementById('password').value=password;
+ tell('Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan kiring.');
 });
 
 // Test sahifasi uchun demo interaktivligi — haqiqiy natija bazaga ulanmagan.
