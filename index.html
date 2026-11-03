@@ -170,13 +170,12 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
  </section>
  <section id="auth" class="page">
   <div class="form-wrap">
-   <div class="section-head"><div><h2>Abituriyent kabineti</h2><p>Telefon raqami orqali kirish yoki ro‘yxatdan o‘tish</p></div></div>
+   <div class="section-head"><div><h2>Abituriyent kabineti</h2><p>Email manzili orqali xavfsiz kirish yoki ro‘yxatdan o‘tish</p></div></div>
    <div class="panel">
-    <div class="field"><label for="phone">Telefon raqami (xalqaro format)</label><input id="phone" type="tel" placeholder="+998901234567" autocomplete="tel"></div>
+    <div class="field"><label for="email">Email manzili</label><input id="email" type="email" placeholder="example@gmail.com" autocomplete="email"></div>
     <div class="field"><label for="password">Parol</label><input id="password" type="password" placeholder="Kamida 8 ta belgi" autocomplete="new-password"></div>
-    <div class="field"><label for="otp">SMS tasdiqlash kodi</label><input id="otp" inputmode="numeric" placeholder="6 xonali kod"></div>
-    <div class="hero-actions"><button id="signupBtn" class="btn-blue">Ro‘yxatdan o‘tish</button><button id="verifyBtn" class="btn-light">SMS kodni tasdiqlash</button><button id="loginBtn" class="btn-light">Kirish</button></div>
-    <div id="authMessage" class="notice">SMS orqali ro‘yxatdan o‘tish Supabase telefon autentifikatsiyasi va SMS provayderi yoqilgandan keyin ishlaydi.</div>
+    <div class="hero-actions"><button id="signupBtn" class="btn-blue">Ro‘yxatdan o‘tish</button><button id="loginBtn" class="btn-light">Kirish</button></div>
+    <div id="authMessage" class="notice">Ro‘yxatdan o‘tish uchun emailingiz va kamida 8 belgili parolni kiriting. Emailingizga tasdiqlash havolasi yuboriladi.</div>
     <p class="muted">Xavfsizlik: parolni saytning o‘zi saqlamaydi. Tasdiqlash va parol boshqaruvi Supabase Auth orqali amalga oshiriladi.</p>
    </div>
   </div>
@@ -403,22 +402,19 @@ if(configured){
 const authMessage=document.getElementById('authMessage');
 function tell(message,isError=false){authMessage.textContent=message;authMessage.className='notice '+(isError?'error':'success');}
 document.getElementById('signupBtn').addEventListener('click',async()=>{
- if(!supabase)return tell('Avval Supabase publishable key qo‘shilishi kerak.',true);
- const phone=document.getElementById('phone').value.trim(),password=document.getElementById('password').value;
- if(!phone.startsWith('+')||password.length<8)return tell('Telefonni +998... formatida va kamida 8 belgili parol kiriting.',true);
- const {error}=await supabase.auth.signUp({phone,password});
- tell(error?error.message:'SMS tasdiqlash kodi yuborildi. Kodni kiriting va “SMS kodni tasdiqlash” tugmasini bosing.',!!error);
-});
-document.getElementById('verifyBtn').addEventListener('click',async()=>{
- if(!supabase)return tell('Avval Supabase publishable key qo‘shilishi kerak.',true);
- const phone=document.getElementById('phone').value.trim(),token=document.getElementById('otp').value.trim();
- const {error}=await supabase.auth.verifyOtp({phone,token,type:'sms'});
- tell(error?error.message:'Telefon raqami tasdiqlandi. Endi parolingiz bilan kirishingiz mumkin.',!!error);
+ if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Sahifani yangilang va qayta urinib ko‘ring.',true);
+ const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value;
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return tell('To‘g‘ri email manzilini kiriting.',true);
+ if(password.length<8)return tell('Parol kamida 8 ta belgidan iborat bo‘lishi kerak.',true);
+ const {data,error}=await supabase.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
+ if(error)return tell(error.message,true);
+ tell(data.user && data.session ? 'Ro‘yxatdan o‘tish muvaffaqiyatli! Kabinetingizga xush kelibsiz.' : 'Ro‘yxatdan o‘tish boshlandi. Emailingizga yuborilgan tasdiqlash havolasini oching, so‘ng saytga qaytib kiring.');
 });
 document.getElementById('loginBtn').addEventListener('click',async()=>{
- if(!supabase)return tell('Avval Supabase publishable key qo‘shilishi kerak.',true);
- const phone=document.getElementById('phone').value.trim(),password=document.getElementById('password').value;
- const {error}=await supabase.auth.signInWithPassword({phone,password});
+ if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Sahifani yangilang va qayta urinib ko‘ring.',true);
+ const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value;
+ if(!email||!password)return tell('Email va parolni kiriting.',true);
+ const {error}=await supabase.auth.signInWithPassword({email,password});
  tell(error?error.message:'Tizimga muvaffaqiyatli kirdingiz!',!!error);
 });
 
