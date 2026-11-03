@@ -175,6 +175,12 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
     <div class="field"><label for="email">Email manzili</label><input id="email" type="email" placeholder="example@gmail.com" autocomplete="email"></div>
     <div class="field"><label for="password">Parol</label><input id="password" type="password" placeholder="Kamida 8 ta belgi" autocomplete="new-password"></div>
     <div class="hero-actions"><button id="signupBtn" class="btn-blue">Ro‘yxatdan o‘tish</button><button id="loginBtn" class="btn-light">Kirish</button></div>
+    <p style="margin:12px 0 0"><button type="button" id="forgotPasswordBtn" class="link-button" style="border:0;background:none;color:#245fca;padding:4px 0;cursor:pointer;font:inherit">Parolni unutdingizmi?</button></p>
+    <div id="recoveryPanel" class="panel" style="display:none;margin-top:14px">
+     <h3>Yangi parol o‘rnatish</h3>
+     <div class="field"><label for="newPassword">Yangi parol</label><input id="newPassword" type="password" placeholder="Kamida 8 ta belgi" autocomplete="new-password"></div>
+     <button type="button" id="saveNewPasswordBtn" class="btn-blue">Yangi parolni saqlash</button>
+    </div>
     <div id="authMessage" class="notice">Ro‘yxatdan o‘tish uchun emailingiz va kamida 8 belgili parolni kiriting. Emailingizga tasdiqlash havolasi yuboriladi.</div>
     <p class="muted">Xavfsizlik: parolni saytning o‘zi saqlamaydi. Tasdiqlash va parol boshqaruvi Supabase Auth orqali amalga oshiriladi.</p>
    </div>
@@ -417,6 +423,26 @@ document.getElementById('loginBtn').addEventListener('click',async()=>{
  const {error}=await supabase.auth.signInWithPassword({email,password});
  tell(error?error.message:'Tizimga muvaffaqiyatli kirdingiz!',!!error);
 });
+document.getElementById('forgotPasswordBtn').addEventListener('click',async()=>{
+ if(!supabase)return tell('Supabase bilan ulanish mavjud emas. Sahifani yangilang.',true);
+ const email=document.getElementById('email').value.trim();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return tell('Avval email manzilingizni kiriting.',true);
+ const redirectTo=window.location.origin+window.location.pathname;
+ const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo});
+ tell(error?'Parol tiklash xati yuborilmadi: '+error.message:'Parolni tiklash havolasi emailingizga yuborildi. Emailingizni, Spam papkasini ham tekshiring.');
+});
+supabase?.auth.onAuthStateChange((event)=>{
+ if(event==='PASSWORD_RECOVERY'){document.getElementById('recoveryPanel').style.display='block';tell('Emaildagi havola tasdiqlandi. Endi yangi parol kiriting.');showPage('auth');}
+});
+document.getElementById('saveNewPasswordBtn').addEventListener('click',async()=>{
+ const password=document.getElementById('newPassword').value;
+ if(password.length<8)return tell('Yangi parol kamida 8 ta belgidan iborat bo‘lsin.',true);
+ const {error}=await supabase.auth.updateUser({password});
+ if(error)return tell('Parol yangilanmadi: '+error.message,true);
+ document.getElementById('recoveryPanel').style.display='none';
+ document.getElementById('password').value=password;
+ tell('Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan kiring.');
+});
 
 // Test sahifasi uchun demo interaktivligi — haqiqiy natija bazaga ulanmagan.
 const demoQuestions=[
@@ -451,6 +477,3 @@ renderDemoQuestion();
 </script>
 </body>
 </html>
-
-
-
